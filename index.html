@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>42 GitHub Viewer — Traffic Dashboard</title>
+<style>
+  :root {
+    color-scheme: light;
+    --plane:          #f9f9f7;
+    --surface-1:      #fcfcfb;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:           #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-views:   #2a78d6;
+    --series-clones:  #eb6834;
+    --good:           #006300;
+  }
+  :root[data-theme="dark"], .dark-vars {
+    color-scheme: dark;
+    --plane:          #0d0d0d;
+    --surface-1:      #1a1a19;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --grid:           #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --series-views:   #3987e5;
+    --series-clones:  #d95926;
+    --good:           #0ca30c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --plane:          #0d0d0d;
+      --surface-1:      #1a1a19;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --grid:           #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --series-views:   #3987e5;
+      --series-clones:  #d95926;
+      --good:           #0ca30c;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--plane);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 20px 64px; }
+
+  header.top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin-bottom: 4px; }
+  h1 { font-size: 20px; font-weight: 600; margin: 0; }
+  .sub { color: var(--text-secondary); font-size: 13px; margin: 2px 0 20px; }
+  .sub .dot { color: var(--text-muted); margin: 0 6px; }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 20px; }
+  .segment { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .segment button {
+    appearance: none; border: 0; background: var(--surface-1); color: var(--text-secondary);
+    font: inherit; font-size: 13px; padding: 6px 14px; cursor: pointer;
+  }
+  .segment button + button { border-left: 1px solid var(--border); }
+  .segment button[aria-pressed="true"] { background: var(--series-views); color: #fff; }
+  .spacer { flex: 1; }
+  .ghost {
+    appearance: none; background: var(--surface-1); border: 1px solid var(--border);
+    color: var(--text-secondary); font: inherit; font-size: 13px; padding: 6px 12px;
+    border-radius: 8px; cursor: pointer;
+  }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+  .tile .label { color: var(--text-secondary); font-size: 12px; margin-bottom: 6px; }
+  .tile .value { font-size: 26px; font-weight: 600; letter-spacing: -0.01em; }
+  .tile.hero .value { font-size: 48px; line-height: 1.05; }
+  .tile .unit { color: var(--text-muted); font-size: 12px; margin-top: 4px; }
+
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 16px 16px 8px; margin-bottom: 20px; }
+  .card h2 { font-size: 14px; font-weight: 600; margin: 0 0 2px; }
+  .card .csub { color: var(--text-secondary); font-size: 12px; margin: 0 0 10px; }
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+
+  .chart { position: relative; }
+  .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .tick text { fill: var(--text-muted); font-size: 11px; }
+  .tick line { stroke: var(--grid); stroke-width: 1; }
+  .baseline { stroke: var(--baseline); stroke-width: 1; }
+  .series-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .end-dot { stroke: var(--surface-1); stroke-width: 2; }
+  .crosshair { stroke: var(--baseline); stroke-width: 1; opacity: 0; }
+  .hover-dot { stroke: var(--surface-1); stroke-width: 2; opacity: 0; }
+
+  .tooltip {
+    position: absolute; pointer-events: none; opacity: 0; transform: translate(-50%, -120%);
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px;
+    padding: 6px 9px; font-size: 12px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    transition: opacity .08s;
+  }
+  .tooltip .tval { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .tooltip .tkey { color: var(--text-secondary); }
+  .tooltip .tdate { color: var(--text-muted); display: block; margin-bottom: 2px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: right; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--text-secondary); font-weight: 500; font-size: 12px; }
+  td.num { font-variant-numeric: tabular-nums; }
+  td.rank { color: var(--text-muted); width: 28px; }
+  a.repo { color: var(--text-primary); text-decoration: none; }
+  a.repo:hover { text-decoration: underline; }
+  .spark { width: 88px; height: 22px; display: block; }
+  .table-scroll { overflow-x: auto; }
+
+  .empty { text-align: center; color: var(--text-secondary); padding: 60px 20px; }
+  details.rawdata { margin-top: 8px; font-size: 12px; color: var(--text-secondary); }
+  details.rawdata summary { cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>42 GitHub Viewer — Traffic Dashboard</h1>
+  </header>
+  <p class="sub" id="sub"></p>
+
+  <div class="controls" id="controls" hidden>
+    <div class="segment" id="period" role="group" aria-label="期間">
+      <button data-period="7d" type="button">7日</button>
+      <button data-period="30d" type="button">30日</button>
+      <button data-period="all" type="button">全期間</button>
+    </div>
+    <span class="spacer"></span>
+    <button class="ghost" id="theme-toggle" type="button">テーマ切替</button>
+  </div>
+
+  <div id="app"></div>
+</div>
+
+<script type="application/json" id="dashboard-data">{"generated_at": "2026-07-23T04:31:59Z", "reference_date": "2026-07-21", "periods": ["7d", "30d", "all"], "repos": [{"name": "tommie-jp/Diode-Ring-Mixer", "stars": 0, "totals": {"7d": {"views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}, "30d": {"views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}, "all": {"views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-13", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-14", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-16", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-18", "views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}]}, {"name": "tommie-jp/Soft-FPGA-Reversi", "stars": 0, "totals": {"7d": {"views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, "30d": {"views_total": 0, "views_unique": 0, "clones_total": 6, "clones_unique": 6}, "all": {"views_total": 0, "views_unique": 0, "clones_total": 6, "clones_unique": 6}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-13", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-14", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-16", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, {"date": "2026-07-18", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}]}, {"name": "tommie-jp/Software-Defined-FPGA", "stars": 0, "totals": {"7d": {"views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, "30d": {"views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}, "all": {"views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-13", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-14", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-16", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-18", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}]}, {"name": "tommie-jp/blog", "stars": 0, "totals": {"7d": {"views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, "30d": {"views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}, "all": {"views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-13", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-14", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-16", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-18", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}]}, {"name": "tommie-jp/curve-tracer", "stars": 2, "totals": {"7d": {"views_total": 4, "views_unique": 3, "clones_total": 3, "clones_unique": 3}, "30d": {"views_total": 5, "views_unique": 4, "clones_total": 3, "clones_unique": 3}, "all": {"views_total": 5, "views_unique": 4, "clones_total": 3, "clones_unique": 3}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-12", "views_total": 1, "views_unique": 1, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-13", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-14", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-16", "views_total": 1, "views_unique": 1, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-18", "views_total": 1, "views_unique": 1, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-21", "views_total": 2, "views_unique": 1, "clones_total": 0, "clones_unique": 0}]}, {"name": "tommie-jp/qr-search", "stars": 0, "totals": {"7d": {"views_total": 3, "views_unique": 3, "clones_total": 675, "clones_unique": 260}, "30d": {"views_total": 4, "views_unique": 4, "clones_total": 776, "clones_unique": 300}, "all": {"views_total": 4, "views_unique": 4, "clones_total": 776, "clones_unique": 300}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-13", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-14", "views_total": 1, "views_unique": 1, "clones_total": 101, "clones_unique": 40}, {"date": "2026-07-15", "views_total": 1, "views_unique": 1, "clones_total": 106, "clones_unique": 41}, {"date": "2026-07-16", "views_total": 0, "views_unique": 0, "clones_total": 72, "clones_unique": 20}, {"date": "2026-07-17", "views_total": 1, "views_unique": 1, "clones_total": 46, "clones_unique": 19}, {"date": "2026-07-18", "views_total": 1, "views_unique": 1, "clones_total": 38, "clones_unique": 19}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 124, "clones_unique": 34}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 206, "clones_unique": 84}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 83, "clones_unique": 43}]}, {"name": "tommie-jp/reversi-uart-protocol", "stars": 0, "totals": {"7d": {"views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, "30d": {"views_total": 1, "views_unique": 1, "clones_total": 3, "clones_unique": 3}, "all": {"views_total": 1, "views_unique": 1, "clones_total": 3, "clones_unique": 3}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-13", "views_total": 1, "views_unique": 1, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-14", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-16", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-18", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}]}, {"name": "tommie-jp/s2p-converter", "stars": 0, "totals": {"7d": {"views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, "30d": {"views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}, "all": {"views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-13", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-14", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-16", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-18", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}]}, {"name": "tommie-jp/soft-fpga", "stars": 0, "totals": {"7d": {"views_total": 0, "views_unique": 0, "clones_total": 8, "clones_unique": 7}, "30d": {"views_total": 0, "views_unique": 0, "clones_total": 11, "clones_unique": 10}, "all": {"views_total": 0, "views_unique": 0, "clones_total": 11, "clones_unique": 10}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-13", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-14", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-16", "views_total": 0, "views_unique": 0, "clones_total": 5, "clones_unique": 4}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}, {"date": "2026-07-18", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}]}, {"name": "tommie-jp/tek4010-demos", "stars": 0, "totals": {"7d": {"views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, "30d": {"views_total": 1, "views_unique": 1, "clones_total": 4, "clones_unique": 4}, "all": {"views_total": 1, "views_unique": 1, "clones_total": 4, "clones_unique": 4}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-13", "views_total": 1, "views_unique": 1, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-14", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-16", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-18", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}]}, {"name": "tommie-jp/tommie-chat", "stars": 0, "totals": {"7d": {"views_total": 2, "views_unique": 1, "clones_total": 6, "clones_unique": 3}, "30d": {"views_total": 3, "views_unique": 2, "clones_total": 37, "clones_unique": 11}, "all": {"views_total": 3, "views_unique": 2, "clones_total": 37, "clones_unique": 11}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 3, "clones_unique": 3}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 12, "clones_unique": 1}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, {"date": "2026-07-11", "views_total": 1, "views_unique": 1, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-13", "views_total": 0, "views_unique": 0, "clones_total": 14, "clones_unique": 2}, {"date": "2026-07-14", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 4, "clones_unique": 1}, {"date": "2026-07-16", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-18", "views_total": 2, "views_unique": 1, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-19", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}]}, {"name": "tommie-jp/tommie-jp", "stars": 0, "totals": {"7d": {"views_total": 4, "views_unique": 3, "clones_total": 3, "clones_unique": 3}, "30d": {"views_total": 36, "views_unique": 12, "clones_total": 108, "clones_unique": 48}, "all": {"views_total": 36, "views_unique": 12, "clones_total": 108, "clones_unique": 48}}, "series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-11", "views_total": 0, "views_unique": 0, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-12", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-13", "views_total": 24, "views_unique": 2, "clones_total": 96, "clones_unique": 37}, {"date": "2026-07-14", "views_total": 8, "views_unique": 7, "clones_total": 8, "clones_unique": 7}, {"date": "2026-07-15", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-16", "views_total": 3, "views_unique": 2, "clones_total": 1, "clones_unique": 1}, {"date": "2026-07-17", "views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, {"date": "2026-07-18", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-19", "views_total": 1, "views_unique": 1, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}, {"date": "2026-07-21", "views_total": 0, "views_unique": 0, "clones_total": 0, "clones_unique": 0}]}], "totals": {"7d": {"views_total": 13, "views_unique": 10, "clones_total": 709, "clones_unique": 290}, "30d": {"views_total": 50, "views_unique": 24, "clones_total": 960, "clones_unique": 397}, "all": {"views_total": 50, "views_unique": 24, "clones_total": 960, "clones_unique": 397}}, "ranking": {"7d": [{"name": "tommie-jp/curve-tracer", "views_unique": 3, "views_total": 4}, {"name": "tommie-jp/tommie-jp", "views_unique": 3, "views_total": 4}, {"name": "tommie-jp/qr-search", "views_unique": 3, "views_total": 3}, {"name": "tommie-jp/tommie-chat", "views_unique": 1, "views_total": 2}, {"name": "tommie-jp/Diode-Ring-Mixer", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/Soft-FPGA-Reversi", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/Software-Defined-FPGA", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/blog", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/reversi-uart-protocol", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/s2p-converter", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/soft-fpga", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/tek4010-demos", "views_unique": 0, "views_total": 0}], "30d": [{"name": "tommie-jp/tommie-jp", "views_unique": 12, "views_total": 36}, {"name": "tommie-jp/curve-tracer", "views_unique": 4, "views_total": 5}, {"name": "tommie-jp/qr-search", "views_unique": 4, "views_total": 4}, {"name": "tommie-jp/tommie-chat", "views_unique": 2, "views_total": 3}, {"name": "tommie-jp/reversi-uart-protocol", "views_unique": 1, "views_total": 1}, {"name": "tommie-jp/tek4010-demos", "views_unique": 1, "views_total": 1}, {"name": "tommie-jp/Diode-Ring-Mixer", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/Soft-FPGA-Reversi", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/Software-Defined-FPGA", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/blog", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/s2p-converter", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/soft-fpga", "views_unique": 0, "views_total": 0}], "all": [{"name": "tommie-jp/tommie-jp", "views_unique": 12, "views_total": 36}, {"name": "tommie-jp/curve-tracer", "views_unique": 4, "views_total": 5}, {"name": "tommie-jp/qr-search", "views_unique": 4, "views_total": 4}, {"name": "tommie-jp/tommie-chat", "views_unique": 2, "views_total": 3}, {"name": "tommie-jp/reversi-uart-protocol", "views_unique": 1, "views_total": 1}, {"name": "tommie-jp/tek4010-demos", "views_unique": 1, "views_total": 1}, {"name": "tommie-jp/Diode-Ring-Mixer", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/Soft-FPGA-Reversi", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/Software-Defined-FPGA", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/blog", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/s2p-converter", "views_unique": 0, "views_total": 0}, {"name": "tommie-jp/soft-fpga", "views_unique": 0, "views_total": 0}]}, "aggregate_series": [{"date": "2026-07-08", "views_total": 0, "views_unique": 0, "clones_total": 4, "clones_unique": 4}, {"date": "2026-07-09", "views_total": 0, "views_unique": 0, "clones_total": 15, "clones_unique": 4}, {"date": "2026-07-10", "views_total": 0, "views_unique": 0, "clones_total": 2, "clones_unique": 2}, {"date": "2026-07-11", "views_total": 1, "views_unique": 1, "clones_total": 7, "clones_unique": 7}, {"date": "2026-07-12", "views_total": 1, "views_unique": 1, "clones_total": 3, "clones_unique": 3}, {"date": "2026-07-13", "views_total": 26, "views_unique": 4, "clones_total": 110, "clones_unique": 39}, {"date": "2026-07-14", "views_total": 9, "views_unique": 8, "clones_total": 110, "clones_unique": 48}, {"date": "2026-07-15", "views_total": 1, "views_unique": 1, "clones_total": 111, "clones_unique": 43}, {"date": "2026-07-16", "views_total": 4, "views_unique": 3, "clones_total": 78, "clones_unique": 25}, {"date": "2026-07-17", "views_total": 1, "views_unique": 1, "clones_total": 61, "clones_unique": 34}, {"date": "2026-07-18", "views_total": 4, "views_unique": 3, "clones_total": 43, "clones_unique": 24}, {"date": "2026-07-19", "views_total": 1, "views_unique": 1, "clones_total": 124, "clones_unique": 34}, {"date": "2026-07-20", "views_total": 0, "views_unique": 0, "clones_total": 209, "clones_unique": 87}, {"date": "2026-07-21", "views_total": 2, "views_unique": 1, "clones_total": 83, "clones_unique": 43}]}</script>
+<script>
+(function () {
+  "use strict";
+
+  var DATA = JSON.parse(document.getElementById("dashboard-data").textContent);
+  var state = { period: "30d" };
+
+  // ---- helpers -------------------------------------------------------------
+  function compact(n) {
+    if (n == null) return "0";
+    var abs = Math.abs(n);
+    if (abs >= 1e6) return (n / 1e6).toFixed(abs >= 1e7 ? 0 : 1).replace(/\.0$/, "") + "M";
+    if (abs >= 1e4) return (n / 1e3).toFixed(0) + "K";
+    return n.toLocaleString("en-US");
+  }
+  function commas(n) { return (n || 0).toLocaleString("en-US"); }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text; // labels are untrusted -> textContent only
+    return e;
+  }
+  function periodDays(p) { return p === "7d" ? 7 : p === "30d" ? 30 : null; }
+  function parseDate(s) { var a = s.split("-"); return Date.UTC(+a[0], +a[1] - 1, +a[2]); }
+
+  function sliceSeries(series, period) {
+    if (!series.length) return [];
+    var days = periodDays(period);
+    if (days == null) return series.slice();
+    var ref = parseDate(DATA.reference_date || series[series.length - 1].date);
+    var start = ref - (days - 1) * 86400000;
+    return series.filter(function (d) { return parseDate(d.date) >= start; });
+  }
+
+  // ---- KPI tiles -----------------------------------------------------------
+  function totalStars() {
+    return DATA.repos.reduce(function (s, r) { return s + (r.stars || 0); }, 0);
+  }
+  function renderTiles(container) {
+    var t = DATA.totals[state.period];
+    var tiles = el("div", "tiles");
+    tiles.appendChild(tile("累計ビュー (unique)", compact(t.views_unique), "hero", commas(t.views_total) + " total"));
+    tiles.appendChild(tile("累計クローン (unique)", compact(t.clones_unique), "", commas(t.clones_total) + " total"));
+    tiles.appendChild(tile("スター合計", compact(totalStars()), "", "全リポジトリ"));
+    tiles.appendChild(tile("追跡リポジトリ", commas(DATA.repos.length), "", "非fork"));
+    container.appendChild(tiles);
+  }
+  function tile(label, value, extraCls, unit) {
+    var d = el("div", "tile" + (extraCls ? " " + extraCls : ""));
+    d.appendChild(el("div", "label", label));
+    d.appendChild(el("div", "value", value));
+    if (unit) d.appendChild(el("div", "unit", unit));
+    return d;
+  }
+
+  // ---- line chart (single series, crosshair + tooltip) ---------------------
+  function lineChart(points, opts) {
+    var W = 480, H = 200, padL = 44, padR = 16, padT = 12, padB = 26;
+    var wrap = el("div", "chart");
+    var svgNS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", opts.label);
+
+    var innerW = W - padL - padR, innerH = H - padT - padB;
+    var n = points.length;
+    var maxV = 1;
+    points.forEach(function (p) { if (p[opts.key] > maxV) maxV = p[opts.key]; });
+    maxV = niceMax(maxV);
+
+    function x(i) { return padL + (n <= 1 ? innerW / 2 : (i / (n - 1)) * innerW); }
+    function y(v) { return padT + innerH - (v / maxV) * innerH; }
+
+    // gridlines + y ticks (0, mid, max)
+    [0, maxV / 2, maxV].forEach(function (v) {
+      var g = document.createElementNS(svgNS, "g"); g.setAttribute("class", "tick");
+      var ln = document.createElementNS(svgNS, "line");
+      ln.setAttribute("x1", padL); ln.setAttribute("x2", W - padR);
+      ln.setAttribute("y1", y(v)); ln.setAttribute("y2", y(v));
+      g.appendChild(ln);
+      var tx = document.createElementNS(svgNS, "text");
+      tx.setAttribute("x", padL - 6); tx.setAttribute("y", y(v) + 3);
+      tx.setAttribute("text-anchor", "end");
+      tx.textContent = compact(Math.round(v));
+      g.appendChild(tx);
+      svg.appendChild(g);
+    });
+
+    // baseline
+    var base = document.createElementNS(svgNS, "line");
+    base.setAttribute("class", "baseline");
+    base.setAttribute("x1", padL); base.setAttribute("x2", W - padR);
+    base.setAttribute("y1", y(0)); base.setAttribute("y2", y(0));
+    svg.appendChild(base);
+
+    // x labels (first / last)
+    if (n) {
+      [[0, "start"], [n - 1, "end"]].forEach(function (pair) {
+        var i = pair[0];
+        var tx = document.createElementNS(svgNS, "text");
+        tx.setAttribute("class", "");
+        tx.setAttribute("x", x(i)); tx.setAttribute("y", H - 8);
+        tx.setAttribute("text-anchor", pair[1] === "start" ? "start" : "end");
+        tx.setAttribute("fill", "var(--text-muted)");
+        tx.setAttribute("font-size", "11");
+        tx.textContent = points[i].date.slice(5);
+        svg.appendChild(tx);
+      });
+    }
+
+    // line path
+    var d = "";
+    points.forEach(function (p, i) { d += (i ? "L" : "M") + x(i).toFixed(1) + " " + y(p[opts.key]).toFixed(1); });
+    if (n === 1) { d += "L" + x(0).toFixed(1) + " " + y(points[0][opts.key]).toFixed(1); }
+    var path = document.createElementNS(svgNS, "path");
+    path.setAttribute("class", "series-line");
+    path.setAttribute("d", d);
+    path.setAttribute("stroke", opts.color);
+    svg.appendChild(path);
+
+    // end dot
+    if (n) {
+      var dot = document.createElementNS(svgNS, "circle");
+      dot.setAttribute("class", "end-dot");
+      dot.setAttribute("cx", x(n - 1)); dot.setAttribute("cy", y(points[n - 1][opts.key]));
+      dot.setAttribute("r", 4); dot.setAttribute("fill", opts.color);
+      svg.appendChild(dot);
+    }
+
+    // crosshair + hover dot
+    var cross = document.createElementNS(svgNS, "line");
+    cross.setAttribute("class", "crosshair");
+    cross.setAttribute("y1", padT); cross.setAttribute("y2", padT + innerH);
+    svg.appendChild(cross);
+    var hdot = document.createElementNS(svgNS, "circle");
+    hdot.setAttribute("class", "hover-dot"); hdot.setAttribute("r", 4);
+    hdot.setAttribute("fill", opts.color);
+    svg.appendChild(hdot);
+
+    wrap.appendChild(svg);
+    var tip = el("div", "tooltip");
+    wrap.appendChild(tip);
+
+    function moveTo(clientX) {
+      if (!n) return;
+      var rect = svg.getBoundingClientRect();
+      var px = (clientX - rect.left) / rect.width * W;
+      var i = Math.round(((px - padL) / innerW) * (n - 1));
+      i = Math.max(0, Math.min(n - 1, i));
+      var p = points[i];
+      cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i));
+      cross.style.opacity = 1;
+      hdot.setAttribute("cx", x(i)); hdot.setAttribute("cy", y(p[opts.key]));
+      hdot.style.opacity = 1;
+      tip.innerHTML = "";
+      tip.appendChild(el("span", "tdate", p.date));
+      var val = el("span", "tval", commas(p[opts.key])); tip.appendChild(val);
+      tip.appendChild(document.createTextNode(" "));
+      tip.appendChild(el("span", "tkey", opts.unit));
+      tip.style.left = (x(i) / W * 100) + "%";
+      tip.style.top = (y(p[opts.key]) / H * 100) + "%";
+      tip.style.opacity = 1;
+    }
+    function hide() { cross.style.opacity = 0; hdot.style.opacity = 0; tip.style.opacity = 0; }
+    svg.addEventListener("pointermove", function (e) { moveTo(e.clientX); });
+    svg.addEventListener("pointerleave", hide);
+
+    return wrap;
+  }
+
+  function niceMax(v) {
+    if (v <= 5) return 5;
+    var pow = Math.pow(10, Math.floor(Math.log10(v)));
+    var f = v / pow;
+    var nf = f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10;
+    return nf * pow;
+  }
+
+  // ---- sparkline (mini, non-interactive) -----------------------------------
+  function sparkline(points, key, color) {
+    var W = 88, H = 22, pad = 2, svgNS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("class", "spark"); svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("aria-hidden", "true");
+    var n = points.length; if (!n) return svg;
+    var maxV = 1; points.forEach(function (p) { if (p[key] > maxV) maxV = p[key]; });
+    function x(i) { return pad + (n <= 1 ? (W - 2 * pad) / 2 : (i / (n - 1)) * (W - 2 * pad)); }
+    function y(v) { return pad + (H - 2 * pad) - (v / maxV) * (H - 2 * pad); }
+    var d = "";
+    points.forEach(function (p, i) { d += (i ? "L" : "M") + x(i).toFixed(1) + " " + y(p[key]).toFixed(1); });
+    var path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", d); path.setAttribute("fill", "none");
+    path.setAttribute("stroke", color); path.setAttribute("stroke-width", "1.5");
+    path.setAttribute("stroke-linejoin", "round"); path.setAttribute("stroke-linecap", "round");
+    svg.appendChild(path);
+    return svg;
+  }
+
+  // ---- ranking table -------------------------------------------------------
+  function repoByName() {
+    var m = {}; DATA.repos.forEach(function (r) { m[r.name] = r; }); return m;
+  }
+  function renderTable(container) {
+    var map = repoByName();
+    var rows = DATA.ranking[state.period];
+    var viewsColor = getComputedStyle(document.body).getPropertyValue("--series-views").trim();
+
+    var scroll = el("div", "table-scroll");
+    var table = el("table");
+    var thead = el("thead"), htr = el("tr");
+    ["", "リポジトリ", "views (u)", "views", "clones (u)", "★", "推移 (views)"].forEach(function (h, i) {
+      var th = el("th", null, h); if (i >= 2 && i <= 5) th.classList.add("num"); htr.appendChild(th);
+    });
+    thead.appendChild(htr); table.appendChild(thead);
+
+    var tbody = el("tbody");
+    rows.forEach(function (row, idx) {
+      var repo = map[row.name] || { series: [], stars: 0, totals: {} };
+      var tot = (repo.totals[state.period]) || { clones_unique: 0 };
+      var tr = el("tr");
+      tr.appendChild(el("td", "rank", String(idx + 1)));
+
+      var nameTd = el("td");
+      var shortName = row.name.indexOf("/") >= 0 ? row.name.split("/").slice(1).join("/") : row.name;
+      var a = el("a", "repo", shortName);
+      a.href = "https://github.com/" + row.name;
+      a.title = row.name;
+      a.rel = "noopener";
+      nameTd.appendChild(a);
+      tr.appendChild(nameTd);
+
+      tr.appendChild(el("td", "num", commas(row.views_unique)));
+      tr.appendChild(el("td", "num", commas(row.views_total)));
+      tr.appendChild(el("td", "num", commas(tot.clones_unique)));
+      tr.appendChild(el("td", "num", repo.stars ? commas(repo.stars) : "–"));
+
+      var sparkTd = el("td");
+      sparkTd.appendChild(sparkline(sliceSeries(repo.series, state.period), "views_total", viewsColor));
+      tr.appendChild(sparkTd);
+
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    scroll.appendChild(table);
+    container.appendChild(scroll);
+  }
+
+  // ---- render --------------------------------------------------------------
+  function render() {
+    var app = document.getElementById("app");
+    app.innerHTML = "";
+
+    if (!DATA.reference_date) {
+      app.appendChild(el("div", "empty", "まだデータがありません。日次ワークフローの初回スナップショットをお待ちください。"));
+      return;
+    }
+
+    renderTiles(app);
+
+    var series = sliceSeries(DATA.aggregate_series, state.period);
+    var viewsColor = getComputedStyle(document.body).getPropertyValue("--series-views").trim();
+    var clonesColor = getComputedStyle(document.body).getPropertyValue("--series-clones").trim();
+
+    var card = el("div", "card");
+    card.appendChild(el("h2", null, "閲覧の推移(全リポジトリ合計)"));
+    card.appendChild(el("p", "csub", "1日あたりの合計。ポイントにカーソルを合わせると値を表示。"));
+    var charts = el("div", "charts");
+    var c1 = el("div"); c1.appendChild(el("div", "csub", "Views (total/day)"));
+    c1.appendChild(lineChart(series, { key: "views_total", color: viewsColor, label: "日次ビュー合計", unit: "views" }));
+    var c2 = el("div"); c2.appendChild(el("div", "csub", "Clones (total/day)"));
+    c2.appendChild(lineChart(series, { key: "clones_total", color: clonesColor, label: "日次クローン合計", unit: "clones" }));
+    charts.appendChild(c1); charts.appendChild(c2);
+    card.appendChild(charts);
+
+    var det = el("details", "rawdata");
+    det.appendChild(el("summary", null, "データ表を表示"));
+    det.appendChild(dataTable(series));
+    card.appendChild(det);
+    app.appendChild(card);
+
+    var tcard = el("div", "card");
+    tcard.appendChild(el("h2", null, "リポジトリ別ランキング"));
+    tcard.appendChild(el("p", "csub", "選択期間の unique views 降順。リポジトリ名クリックで個別レポートへ。"));
+    renderTable(tcard);
+    app.appendChild(tcard);
+  }
+
+  function dataTable(series) {
+    var scroll = el("div", "table-scroll");
+    var table = el("table");
+    var htr = el("tr");
+    ["日付", "views", "views (u)", "clones", "clones (u)"].forEach(function (h, i) {
+      var th = el("th", null, h); if (i) th.classList.add("num"); htr.appendChild(th);
+    });
+    var thead = el("thead"); thead.appendChild(htr); table.appendChild(thead);
+    var tbody = el("tbody");
+    series.forEach(function (p) {
+      var tr = el("tr");
+      tr.appendChild(el("td", null, p.date));
+      ["views_total", "views_unique", "clones_total", "clones_unique"].forEach(function (k) {
+        tr.appendChild(el("td", "num", commas(p[k])));
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    scroll.appendChild(table);
+    return scroll;
+  }
+
+  // ---- chrome --------------------------------------------------------------
+  function renderSub() {
+    var sub = document.getElementById("sub");
+    sub.innerHTML = "";
+    if (DATA.reference_date) {
+      sub.appendChild(document.createTextNode("最新データ: " + DATA.reference_date));
+      var d1 = el("span", "dot", "•"); sub.appendChild(d1);
+    }
+    sub.appendChild(document.createTextNode("生成: " + DATA.generated_at));
+  }
+
+  function initControls() {
+    document.getElementById("controls").hidden = !DATA.reference_date;
+    var periodButtons = document.querySelectorAll("#period button");
+    function syncPressed() {
+      periodButtons.forEach(function (b) {
+        b.setAttribute("aria-pressed", b.dataset.period === state.period ? "true" : "false");
+      });
+    }
+    periodButtons.forEach(function (b) {
+      b.addEventListener("click", function () { state.period = b.dataset.period; syncPressed(); render(); });
+    });
+    syncPressed();
+
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      var root = document.documentElement;
+      var cur = root.getAttribute("data-theme");
+      var next = cur === "dark" ? "light" : cur === "light" ? null : "dark";
+      if (next) root.setAttribute("data-theme", next); else root.removeAttribute("data-theme");
+      render(); // series colors are read from CSS vars
+    });
+  }
+
+  renderSub();
+  initControls();
+  render();
+})();
+</script>
+</body>
+</html>
