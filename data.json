@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-27T00:57:55Z",
-  "reference_date": "2026-07-25",
+  "generated_at": "2026-07-28T01:01:44Z",
+  "reference_date": "2026-07-26",
   "periods": [
     "7d",
     "30d",
@@ -276,6 +276,13 @@
         },
         {
           "date": "2026-07-25",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-07-26",
           "views_total": 0,
           "views_unique": 0,
           "clones_total": 0,
@@ -556,6 +563,13 @@
           "views_unique": 0,
           "clones_total": 1,
           "clones_unique": 1
+        },
+        {
+          "date": "2026-07-26",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -690,20 +704,20 @@
         "7d": {
           "views_total": 1,
           "views_unique": 1,
-          "clones_total": 453,
-          "clones_unique": 194
+          "clones_total": 335,
+          "clones_unique": 165
         },
         "30d": {
           "views_total": 5,
           "views_unique": 5,
-          "clones_total": 816,
-          "clones_unique": 333
+          "clones_total": 822,
+          "clones_unique": 338
         },
         "all": {
           "views_total": 5,
           "views_unique": 5,
-          "clones_total": 816,
-          "clones_unique": 333
+          "clones_total": 822,
+          "clones_unique": 338
         }
       },
       "series": [
@@ -832,6 +846,13 @@
           "views_unique": 0,
           "clones_total": 4,
           "clones_unique": 4
+        },
+        {
+          "date": "2026-07-26",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 6,
+          "clones_unique": 5
         }
       ]
     },
@@ -984,6 +1005,13 @@
           "views_unique": 0,
           "clones_total": 1,
           "clones_unique": 1
+        },
+        {
+          "date": "2026-07-26",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -1118,20 +1146,20 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 3,
-          "clones_unique": 3
+          "clones_total": 4,
+          "clones_unique": 4
         },
         "30d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 14,
-          "clones_unique": 13
+          "clones_total": 15,
+          "clones_unique": 14
         },
         "all": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 14,
-          "clones_unique": 13
+          "clones_total": 15,
+          "clones_unique": 14
         }
       },
       "series": [
@@ -1256,6 +1284,13 @@
         },
         {
           "date": "2026-07-25",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 1,
+          "clones_unique": 1
+        },
+        {
+          "date": "2026-07-26",
           "views_total": 0,
           "views_unique": 0,
           "clones_total": 1,
@@ -1412,6 +1447,13 @@
           "views_unique": 0,
           "clones_total": 1,
           "clones_unique": 1
+        },
+        {
+          "date": "2026-07-26",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -1422,20 +1464,20 @@
         "7d": {
           "views_total": 7,
           "views_unique": 2,
-          "clones_total": 2,
-          "clones_unique": 2
+          "clones_total": 3,
+          "clones_unique": 3
         },
         "30d": {
           "views_total": 10,
           "views_unique": 4,
-          "clones_total": 39,
-          "clones_unique": 13
+          "clones_total": 40,
+          "clones_unique": 14
         },
         "all": {
           "views_total": 10,
           "views_unique": 4,
-          "clones_total": 39,
-          "clones_unique": 13
+          "clones_total": 40,
+          "clones_unique": 14
         }
       },
       "series": [
@@ -1564,6 +1606,13 @@
           "views_unique": 0,
           "clones_total": 2,
           "clones_unique": 2
+        },
+        {
+          "date": "2026-07-26",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 1,
+          "clones_unique": 1
         }
       ]
     },
@@ -1572,8 +1621,8 @@
       "stars": 0,
       "totals": {
         "7d": {
-          "views_total": 14,
-          "views_unique": 6,
+          "views_total": 13,
+          "views_unique": 5,
           "clones_total": 1,
           "clones_unique": 1
         },
@@ -1716,36 +1765,43 @@
           "views_unique": 2,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-07-26",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     }
   ],
   "totals": {
     "7d": {
-      "views_total": 24,
-      "views_unique": 10,
-      "clones_total": 467,
-      "clones_unique": 208
+      "views_total": 23,
+      "views_unique": 9,
+      "clones_total": 351,
+      "clones_unique": 181
     },
     "30d": {
       "views_total": 71,
       "views_unique": 32,
-      "clones_total": 1011,
-      "clones_unique": 441
+      "clones_total": 1019,
+      "clones_unique": 448
     },
     "all": {
       "views_total": 71,
       "views_unique": 32,
-      "clones_total": 1011,
-      "clones_unique": 441
+      "clones_total": 1019,
+      "clones_unique": 448
     }
   },
   "ranking": {
     "7d": [
       {
         "name": "tommie-jp/tommie-jp",
-        "views_unique": 6,
-        "views_total": 14
+        "views_unique": 5,
+        "views_total": 13
       },
       {
         "name": "tommie-jp/tommie-chat",
@@ -2054,6 +2110,13 @@
       "views_unique": 2,
       "clones_total": 10,
       "clones_unique": 10
+    },
+    {
+      "date": "2026-07-26",
+      "views_total": 0,
+      "views_unique": 0,
+      "clones_total": 8,
+      "clones_unique": 7
     }
   ]
 }
