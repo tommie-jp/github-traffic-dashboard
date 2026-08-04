@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-03T00:57:54Z",
-  "reference_date": "2026-08-01",
+  "generated_at": "2026-08-04T01:08:12Z",
+  "reference_date": "2026-08-02",
   "periods": [
     "7d",
     "30d",
@@ -781,8 +781,8 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 16,
-          "clones_unique": 14
+          "clones_total": 10,
+          "clones_unique": 9
         },
         "30d": {
           "views_total": 5,
@@ -961,6 +961,20 @@
         },
         {
           "date": "2026-07-31",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-01",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-02",
           "views_total": 0,
           "views_unique": 0,
           "clones_total": 0,
@@ -1293,8 +1307,8 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 3,
-          "clones_unique": 3
+          "clones_total": 2,
+          "clones_unique": 2
         },
         "30d": {
           "views_total": 0,
@@ -1681,8 +1695,8 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 5,
-          "clones_unique": 5
+          "clones_total": 4,
+          "clones_unique": 4
         },
         "30d": {
           "views_total": 10,
@@ -1861,6 +1875,20 @@
         },
         {
           "date": "2026-07-31",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-01",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-02",
           "views_total": 0,
           "views_unique": 0,
           "clones_total": 0,
@@ -2067,8 +2095,8 @@
     "7d": {
       "views_total": 0,
       "views_unique": 0,
-      "clones_total": 31,
-      "clones_unique": 29
+      "clones_total": 23,
+      "clones_unique": 22
     },
     "30d": {
       "views_total": 71,
@@ -2442,6 +2470,13 @@
     },
     {
       "date": "2026-08-01",
+      "views_total": 0,
+      "views_unique": 0,
+      "clones_total": 0,
+      "clones_unique": 0
+    },
+    {
+      "date": "2026-08-02",
       "views_total": 0,
       "views_unique": 0,
       "clones_total": 0,
