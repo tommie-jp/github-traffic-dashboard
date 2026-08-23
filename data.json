@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-22T00:22:14Z",
-  "reference_date": "2026-08-20",
+  "generated_at": "2026-08-23T00:19:23Z",
+  "reference_date": "2026-08-21",
   "periods": [
     "7d",
     "30d",
@@ -462,6 +462,13 @@
           "views_unique": 0,
           "clones_total": 2,
           "clones_unique": 2
+        },
+        {
+          "date": "2026-08-21",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -1033,20 +1040,20 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 3,
-          "clones_unique": 3
+          "clones_total": 5,
+          "clones_unique": 5
         },
         "30d": {
           "views_total": 2,
           "views_unique": 2,
-          "clones_total": 128,
-          "clones_unique": 76
+          "clones_total": 107,
+          "clones_unique": 62
         },
         "all": {
           "views_total": 6,
           "views_unique": 6,
-          "clones_total": 904,
-          "clones_unique": 376
+          "clones_total": 906,
+          "clones_unique": 378
         }
       },
       "series": [
@@ -1357,6 +1364,13 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-21",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 2,
+          "clones_unique": 2
         }
       ]
     },
@@ -1367,8 +1381,8 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 3,
-          "clones_unique": 3
+          "clones_total": 2,
+          "clones_unique": 2
         },
         "30d": {
           "views_total": 1,
@@ -1687,6 +1701,13 @@
         },
         {
           "date": "2026-08-20",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-21",
           "views_total": 0,
           "views_unique": 0,
           "clones_total": 0,
@@ -2149,6 +2170,13 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-21",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -2483,6 +2511,13 @@
           "views_unique": 1,
           "clones_total": 1,
           "clones_unique": 1
+        },
+        {
+          "date": "2026-08-21",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -2491,8 +2526,8 @@
       "stars": 0,
       "totals": {
         "7d": {
-          "views_total": 1,
-          "views_unique": 1,
+          "views_total": 0,
+          "views_unique": 0,
           "clones_total": 1,
           "clones_unique": 1
         },
@@ -2817,6 +2852,13 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-21",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -2825,22 +2867,22 @@
       "stars": 0,
       "totals": {
         "7d": {
-          "views_total": 4,
-          "views_unique": 3,
-          "clones_total": 2,
-          "clones_unique": 2
+          "views_total": 5,
+          "views_unique": 4,
+          "clones_total": 3,
+          "clones_unique": 3
         },
         "30d": {
-          "views_total": 20,
-          "views_unique": 11,
+          "views_total": 21,
+          "views_unique": 12,
           "clones_total": 7,
           "clones_unique": 7
         },
         "all": {
-          "views_total": 56,
-          "views_unique": 23,
-          "clones_total": 115,
-          "clones_unique": 55
+          "views_total": 57,
+          "views_unique": 24,
+          "clones_total": 116,
+          "clones_unique": 56
         }
       },
       "series": [
@@ -3151,6 +3193,13 @@
           "views_unique": 1,
           "clones_total": 1,
           "clones_unique": 1
+        },
+        {
+          "date": "2026-08-21",
+          "views_total": 1,
+          "views_unique": 1,
+          "clones_total": 1,
+          "clones_unique": 1
         }
       ]
     }
@@ -3159,36 +3208,31 @@
     "7d": {
       "views_total": 6,
       "views_unique": 5,
-      "clones_total": 15,
-      "clones_unique": 15
+      "clones_total": 17,
+      "clones_unique": 17
     },
     "30d": {
-      "views_total": 41,
-      "views_unique": 26,
-      "clones_total": 189,
-      "clones_unique": 137
+      "views_total": 42,
+      "views_unique": 27,
+      "clones_total": 168,
+      "clones_unique": 123
     },
     "all": {
-      "views_total": 91,
-      "views_unique": 50,
-      "clones_total": 1149,
-      "clones_unique": 534
+      "views_total": 92,
+      "views_unique": 51,
+      "clones_total": 1152,
+      "clones_unique": 537
     }
   },
   "ranking": {
     "7d": [
       {
         "name": "tommie-jp/tommie-jp",
-        "views_unique": 3,
-        "views_total": 4
+        "views_unique": 4,
+        "views_total": 5
       },
       {
         "name": "tommie-jp/tek4010-demos",
-        "views_unique": 1,
-        "views_total": 1
-      },
-      {
-        "name": "tommie-jp/tommie-chat",
         "views_unique": 1,
         "views_total": 1
       },
@@ -3236,13 +3280,18 @@
         "name": "tommie-jp/soft-fpga",
         "views_unique": 0,
         "views_total": 0
+      },
+      {
+        "name": "tommie-jp/tommie-chat",
+        "views_unique": 0,
+        "views_total": 0
       }
     ],
     "30d": [
       {
         "name": "tommie-jp/tommie-jp",
-        "views_unique": 11,
-        "views_total": 20
+        "views_unique": 12,
+        "views_total": 21
       },
       {
         "name": "tommie-jp/tommie-chat",
@@ -3303,8 +3352,8 @@
     "all": [
       {
         "name": "tommie-jp/tommie-jp",
-        "views_unique": 23,
-        "views_total": 56
+        "views_unique": 24,
+        "views_total": 57
       },
       {
         "name": "tommie-jp/tommie-chat",
@@ -3671,6 +3720,13 @@
       "views_unique": 2,
       "clones_total": 4,
       "clones_unique": 4
+    },
+    {
+      "date": "2026-08-21",
+      "views_total": 1,
+      "views_unique": 1,
+      "clones_total": 3,
+      "clones_unique": 3
     }
   ]
 }
