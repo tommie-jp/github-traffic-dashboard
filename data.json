@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-26T00:23:10Z",
-  "reference_date": "2026-08-24",
+  "generated_at": "2026-08-27T05:17:45Z",
+  "reference_date": "2026-08-25",
   "periods": [
     "7d",
     "30d",
@@ -144,14 +144,14 @@
         "30d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 7,
-          "clones_unique": 7
+          "clones_total": 8,
+          "clones_unique": 8
         },
         "all": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 15,
-          "clones_unique": 15
+          "clones_total": 16,
+          "clones_unique": 16
         }
       },
       "series": [
@@ -490,6 +490,13 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-25",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 1,
+          "clones_unique": 1
         }
       ]
     },
@@ -624,20 +631,20 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 0,
-          "clones_unique": 0
+          "clones_total": 1,
+          "clones_unique": 1
         },
         "30d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 1,
-          "clones_unique": 1
+          "clones_total": 2,
+          "clones_unique": 2
         },
         "all": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 5,
-          "clones_unique": 5
+          "clones_total": 6,
+          "clones_unique": 6
         }
       },
       "series": [
@@ -927,6 +934,62 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-18",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-19",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-20",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-21",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-22",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-23",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-24",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-25",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 1,
+          "clones_unique": 1
         }
       ]
     },
@@ -1067,14 +1130,14 @@
         "30d": {
           "views_total": 1,
           "views_unique": 1,
-          "clones_total": 91,
-          "clones_unique": 46
+          "clones_total": 87,
+          "clones_unique": 43
         },
         "all": {
           "views_total": 6,
           "views_unique": 6,
-          "clones_total": 907,
-          "clones_unique": 379
+          "clones_total": 909,
+          "clones_unique": 381
         }
       },
       "series": [
@@ -1413,6 +1476,13 @@
           "views_unique": 0,
           "clones_total": 1,
           "clones_unique": 1
+        },
+        {
+          "date": "2026-08-25",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 2,
+          "clones_unique": 2
         }
       ]
     },
@@ -1423,20 +1493,20 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 1,
-          "clones_unique": 1
+          "clones_total": 2,
+          "clones_unique": 2
         },
         "30d": {
           "views_total": 1,
           "views_unique": 1,
-          "clones_total": 6,
-          "clones_unique": 6
+          "clones_total": 7,
+          "clones_unique": 7
         },
         "all": {
           "views_total": 2,
           "views_unique": 2,
-          "clones_total": 10,
-          "clones_unique": 10
+          "clones_total": 11,
+          "clones_unique": 11
         }
       },
       "series": [
@@ -1771,6 +1841,13 @@
         },
         {
           "date": "2026-08-24",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 1,
+          "clones_unique": 1
+        },
+        {
+          "date": "2026-08-25",
           "views_total": 0,
           "views_unique": 0,
           "clones_total": 1,
@@ -1909,20 +1986,20 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 5,
-          "clones_unique": 5
+          "clones_total": 7,
+          "clones_unique": 7
         },
         "30d": {
           "views_total": 3,
           "views_unique": 3,
-          "clones_total": 20,
-          "clones_unique": 20
+          "clones_total": 21,
+          "clones_unique": 21
         },
         "all": {
           "views_total": 3,
           "views_unique": 3,
-          "clones_total": 34,
-          "clones_unique": 33
+          "clones_total": 36,
+          "clones_unique": 35
         }
       },
       "series": [
@@ -2261,6 +2338,13 @@
           "views_unique": 0,
           "clones_total": 2,
           "clones_unique": 2
+        },
+        {
+          "date": "2026-08-25",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 2,
+          "clones_unique": 2
         }
       ]
     },
@@ -2277,14 +2361,14 @@
         "30d": {
           "views_total": 4,
           "views_unique": 4,
-          "clones_total": 8,
-          "clones_unique": 8
+          "clones_total": 9,
+          "clones_unique": 9
         },
         "all": {
           "views_total": 5,
           "views_unique": 5,
-          "clones_total": 13,
-          "clones_unique": 13
+          "clones_total": 14,
+          "clones_unique": 14
         }
       },
       "series": [
@@ -2623,6 +2707,13 @@
           "views_unique": 0,
           "clones_total": 2,
           "clones_unique": 2
+        },
+        {
+          "date": "2026-08-25",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 1,
+          "clones_unique": 1
         }
       ]
     },
@@ -2633,8 +2724,8 @@
         "7d": {
           "views_total": 3,
           "views_unique": 2,
-          "clones_total": 1,
-          "clones_unique": 1
+          "clones_total": 2,
+          "clones_unique": 2
         },
         "30d": {
           "views_total": 7,
@@ -2645,8 +2736,8 @@
         "all": {
           "views_total": 17,
           "views_unique": 9,
-          "clones_total": 49,
-          "clones_unique": 23
+          "clones_total": 50,
+          "clones_unique": 24
         }
       },
       "series": [
@@ -2985,6 +3076,13 @@
           "views_unique": 1,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-25",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 1,
+          "clones_unique": 1
         }
       ]
     },
@@ -2993,22 +3091,22 @@
       "stars": 0,
       "totals": {
         "7d": {
-          "views_total": 6,
-          "views_unique": 5,
-          "clones_total": 3,
-          "clones_unique": 3
-        },
-        "30d": {
           "views_total": 9,
           "views_unique": 8,
-          "clones_total": 8,
-          "clones_unique": 8
+          "clones_total": 6,
+          "clones_unique": 6
+        },
+        "30d": {
+          "views_total": 12,
+          "views_unique": 11,
+          "clones_total": 11,
+          "clones_unique": 11
         },
         "all": {
-          "views_total": 58,
-          "views_unique": 25,
-          "clones_total": 117,
-          "clones_unique": 57
+          "views_total": 61,
+          "views_unique": 28,
+          "clones_total": 120,
+          "clones_unique": 60
         }
       },
       "series": [
@@ -3347,36 +3445,43 @@
           "views_unique": 1,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-25",
+          "views_total": 3,
+          "views_unique": 3,
+          "clones_total": 3,
+          "clones_unique": 3
         }
       ]
     }
   ],
   "totals": {
     "7d": {
-      "views_total": 10,
-      "views_unique": 8,
-      "clones_total": 22,
-      "clones_unique": 22
+      "views_total": 13,
+      "views_unique": 11,
+      "clones_total": 30,
+      "clones_unique": 30
     },
     "30d": {
-      "views_total": 25,
-      "views_unique": 22,
-      "clones_total": 151,
-      "clones_unique": 106
+      "views_total": 28,
+      "views_unique": 25,
+      "clones_total": 155,
+      "clones_unique": 111
     },
     "all": {
-      "views_total": 96,
-      "views_unique": 54,
-      "clones_total": 1162,
-      "clones_unique": 547
+      "views_total": 99,
+      "views_unique": 57,
+      "clones_total": 1174,
+      "clones_unique": 559
     }
   },
   "ranking": {
     "7d": [
       {
         "name": "tommie-jp/tommie-jp",
-        "views_unique": 5,
-        "views_total": 6
+        "views_unique": 8,
+        "views_total": 9
       },
       {
         "name": "tommie-jp/tommie-chat",
@@ -3437,8 +3542,8 @@
     "30d": [
       {
         "name": "tommie-jp/tommie-jp",
-        "views_unique": 8,
-        "views_total": 9
+        "views_unique": 11,
+        "views_total": 12
       },
       {
         "name": "tommie-jp/tommie-chat",
@@ -3499,8 +3604,8 @@
     "all": [
       {
         "name": "tommie-jp/tommie-jp",
-        "views_unique": 25,
-        "views_total": 58
+        "views_unique": 28,
+        "views_total": 61
       },
       {
         "name": "tommie-jp/tommie-chat",
@@ -3895,6 +4000,13 @@
       "views_unique": 2,
       "clones_total": 6,
       "clones_unique": 6
+    },
+    {
+      "date": "2026-08-25",
+      "views_total": 3,
+      "views_unique": 3,
+      "clones_total": 12,
+      "clones_unique": 12
     }
   ]
 }
