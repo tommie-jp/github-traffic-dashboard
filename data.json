@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-31T02:05:31Z",
-  "reference_date": "2026-08-29",
+  "generated_at": "2026-09-01T02:39:53Z",
+  "reference_date": "2026-08-30",
   "periods": [
     "7d",
     "30d",
@@ -521,6 +521,13 @@
         },
         {
           "date": "2026-08-29",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-30",
           "views_total": 0,
           "views_unique": 0,
           "clones_total": 0,
@@ -1046,6 +1053,13 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-30",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -1180,20 +1194,20 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 5,
-          "clones_unique": 5
+          "clones_total": 16,
+          "clones_unique": 16
         },
         "30d": {
           "views_total": 1,
           "views_unique": 1,
-          "clones_total": 79,
-          "clones_unique": 36
+          "clones_total": 90,
+          "clones_unique": 47
         },
         "all": {
           "views_total": 6,
           "views_unique": 6,
-          "clones_total": 911,
-          "clones_unique": 383
+          "clones_total": 922,
+          "clones_unique": 394
         }
       },
       "series": [
@@ -1567,6 +1581,13 @@
           "views_unique": 0,
           "clones_total": 1,
           "clones_unique": 1
+        },
+        {
+          "date": "2026-08-30",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 11,
+          "clones_unique": 11
         }
       ]
     },
@@ -1575,20 +1596,20 @@
       "stars": 0,
       "totals": {
         "7d": {
-          "views_total": 0,
-          "views_unique": 0,
+          "views_total": 1,
+          "views_unique": 1,
           "clones_total": 2,
           "clones_unique": 2
         },
         "30d": {
-          "views_total": 1,
-          "views_unique": 1,
+          "views_total": 2,
+          "views_unique": 2,
           "clones_total": 5,
           "clones_unique": 5
         },
         "all": {
-          "views_total": 2,
-          "views_unique": 2,
+          "views_total": 3,
+          "views_unique": 3,
           "clones_total": 11,
           "clones_unique": 11
         }
@@ -1964,6 +1985,13 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-30",
+          "views_total": 1,
+          "views_unique": 1,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -2098,8 +2126,8 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 6,
-          "clones_unique": 6
+          "clones_total": 4,
+          "clones_unique": 4
         },
         "30d": {
           "views_total": 3,
@@ -2481,6 +2509,13 @@
         },
         {
           "date": "2026-08-29",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-08-30",
           "views_total": 0,
           "views_unique": 0,
           "clones_total": 0,
@@ -2882,6 +2917,13 @@
           "views_unique": 0,
           "clones_total": 1,
           "clones_unique": 1
+        },
+        {
+          "date": "2026-08-30",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -2890,22 +2932,22 @@
       "stars": 0,
       "totals": {
         "7d": {
-          "views_total": 7,
-          "views_unique": 6,
-          "clones_total": 17,
-          "clones_unique": 16
+          "views_total": 10,
+          "views_unique": 7,
+          "clones_total": 18,
+          "clones_unique": 17
         },
         "30d": {
-          "views_total": 11,
-          "views_unique": 9,
-          "clones_total": 22,
-          "clones_unique": 21
+          "views_total": 15,
+          "views_unique": 11,
+          "clones_total": 23,
+          "clones_unique": 22
         },
         "all": {
-          "views_total": 21,
-          "views_unique": 13,
-          "clones_total": 66,
-          "clones_unique": 39
+          "views_total": 25,
+          "views_unique": 15,
+          "clones_total": 67,
+          "clones_unique": 40
         }
       },
       "series": [
@@ -3279,6 +3321,13 @@
           "views_unique": 1,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-30",
+          "views_total": 4,
+          "views_unique": 2,
+          "clones_total": 1,
+          "clones_unique": 1
         }
       ]
     },
@@ -3676,28 +3725,35 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-08-30",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     }
   ],
   "totals": {
     "7d": {
-      "views_total": 17,
-      "views_unique": 16,
-      "clones_total": 40,
-      "clones_unique": 39
+      "views_total": 21,
+      "views_unique": 18,
+      "clones_total": 50,
+      "clones_unique": 49
     },
     "30d": {
-      "views_total": 38,
-      "views_unique": 35,
-      "clones_total": 152,
-      "clones_unique": 108
+      "views_total": 43,
+      "views_unique": 38,
+      "clones_total": 164,
+      "clones_unique": 120
     },
     "all": {
-      "views_total": 109,
-      "views_unique": 67,
-      "clones_total": 1194,
-      "clones_unique": 578
+      "views_total": 114,
+      "views_unique": 70,
+      "clones_total": 1206,
+      "clones_unique": 590
     }
   },
   "ranking": {
@@ -3709,8 +3765,13 @@
       },
       {
         "name": "tommie-jp/tommie-chat",
-        "views_unique": 6,
-        "views_total": 7
+        "views_unique": 7,
+        "views_total": 10
+      },
+      {
+        "name": "tommie-jp/reversi-uart-protocol",
+        "views_unique": 1,
+        "views_total": 1
       },
       {
         "name": "tommie-jp/Diode-Ring-Mixer",
@@ -3743,11 +3804,6 @@
         "views_total": 0
       },
       {
-        "name": "tommie-jp/reversi-uart-protocol",
-        "views_unique": 0,
-        "views_total": 0
-      },
-      {
         "name": "tommie-jp/s2p-converter",
         "views_unique": 0,
         "views_total": 0
@@ -3771,8 +3827,8 @@
       },
       {
         "name": "tommie-jp/tommie-chat",
-        "views_unique": 9,
-        "views_total": 11
+        "views_unique": 11,
+        "views_total": 15
       },
       {
         "name": "tommie-jp/tek4010-demos",
@@ -3785,12 +3841,12 @@
         "views_total": 3
       },
       {
-        "name": "tommie-jp/qr-search",
-        "views_unique": 1,
-        "views_total": 1
+        "name": "tommie-jp/reversi-uart-protocol",
+        "views_unique": 2,
+        "views_total": 2
       },
       {
-        "name": "tommie-jp/reversi-uart-protocol",
+        "name": "tommie-jp/qr-search",
         "views_unique": 1,
         "views_total": 1
       },
@@ -3833,8 +3889,8 @@
       },
       {
         "name": "tommie-jp/tommie-chat",
-        "views_unique": 13,
-        "views_total": 21
+        "views_unique": 15,
+        "views_total": 25
       },
       {
         "name": "tommie-jp/qr-search",
@@ -3852,14 +3908,14 @@
         "views_total": 5
       },
       {
-        "name": "tommie-jp/soft-fpga",
+        "name": "tommie-jp/reversi-uart-protocol",
         "views_unique": 3,
         "views_total": 3
       },
       {
-        "name": "tommie-jp/reversi-uart-protocol",
-        "views_unique": 2,
-        "views_total": 2
+        "name": "tommie-jp/soft-fpga",
+        "views_unique": 3,
+        "views_total": 3
       },
       {
         "name": "tommie-jp/Diode-Ring-Mixer",
@@ -4259,6 +4315,13 @@
       "views_unique": 1,
       "clones_total": 2,
       "clones_unique": 2
+    },
+    {
+      "date": "2026-08-30",
+      "views_total": 5,
+      "views_unique": 3,
+      "clones_total": 12,
+      "clones_unique": 12
     }
   ]
 }
