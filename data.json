@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-21T04:44:39Z",
-  "reference_date": "2026-11-19",
+  "generated_at": "2026-11-22T03:48:12Z",
+  "reference_date": "2026-11-20",
   "periods": [
     "7d",
     "30d",
@@ -138,20 +138,20 @@
         "7d": {
           "views_total": 1,
           "views_unique": 1,
-          "clones_total": 26,
-          "clones_unique": 15
+          "clones_total": 27,
+          "clones_unique": 16
         },
         "30d": {
           "views_total": 1,
           "views_unique": 1,
-          "clones_total": 48,
-          "clones_unique": 34
+          "clones_total": 49,
+          "clones_unique": 35
         },
         "all": {
           "views_total": 3,
           "views_unique": 3,
-          "clones_total": 127,
-          "clones_unique": 103
+          "clones_total": 128,
+          "clones_unique": 104
         }
       },
       "series": [
@@ -1099,6 +1099,13 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-11-20",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 1,
+          "clones_unique": 1
         }
       ]
     },
@@ -1233,8 +1240,8 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 2,
-          "clones_unique": 1
+          "clones_total": 0,
+          "clones_unique": 0
         },
         "30d": {
           "views_total": 0,
@@ -2194,6 +2201,13 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-11-20",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -2326,22 +2340,22 @@
       "stars": 0,
       "totals": {
         "7d": {
-          "views_total": 2,
-          "views_unique": 2,
-          "clones_total": 1131,
-          "clones_unique": 169
+          "views_total": 1,
+          "views_unique": 1,
+          "clones_total": 1137,
+          "clones_unique": 155
         },
         "30d": {
           "views_total": 5,
           "views_unique": 3,
-          "clones_total": 3000,
-          "clones_unique": 623
+          "clones_total": 3128,
+          "clones_unique": 648
         },
         "all": {
           "views_total": 15,
           "views_unique": 13,
-          "clones_total": 5160,
-          "clones_unique": 1404
+          "clones_total": 5303,
+          "clones_unique": 1435
         }
       },
       "series": [
@@ -3289,6 +3303,13 @@
           "views_unique": 0,
           "clones_total": 17,
           "clones_unique": 12
+        },
+        {
+          "date": "2026-11-20",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 143,
+          "clones_unique": 31
         }
       ]
     },
@@ -3299,14 +3320,14 @@
         "7d": {
           "views_total": 0,
           "views_unique": 0,
-          "clones_total": 3,
-          "clones_unique": 3
+          "clones_total": 2,
+          "clones_unique": 2
         },
         "30d": {
           "views_total": 2,
           "views_unique": 2,
-          "clones_total": 60,
-          "clones_unique": 37
+          "clones_total": 23,
+          "clones_unique": 21
         },
         "all": {
           "views_total": 9,
@@ -4392,22 +4413,22 @@
       "stars": 0,
       "totals": {
         "7d": {
-          "views_total": 9,
-          "views_unique": 3,
-          "clones_total": 12,
-          "clones_unique": 10
+          "views_total": 10,
+          "views_unique": 4,
+          "clones_total": 14,
+          "clones_unique": 11
         },
         "30d": {
-          "views_total": 51,
-          "views_unique": 16,
-          "clones_total": 79,
-          "clones_unique": 51
+          "views_total": 52,
+          "views_unique": 17,
+          "clones_total": 57,
+          "clones_unique": 47
         },
         "all": {
-          "views_total": 70,
-          "views_unique": 28,
-          "clones_total": 652,
-          "clones_unique": 291
+          "views_total": 71,
+          "views_unique": 29,
+          "clones_total": 657,
+          "clones_unique": 294
         }
       },
       "series": [
@@ -5355,6 +5376,13 @@
           "views_unique": 0,
           "clones_total": 2,
           "clones_unique": 2
+        },
+        {
+          "date": "2026-11-20",
+          "views_total": 1,
+          "views_unique": 1,
+          "clones_total": 5,
+          "clones_unique": 3
         }
       ]
     },
@@ -5371,8 +5399,8 @@
         "30d": {
           "views_total": 1,
           "views_unique": 1,
-          "clones_total": 19,
-          "clones_unique": 18
+          "clones_total": 17,
+          "clones_unique": 16
         },
         "all": {
           "views_total": 15,
@@ -6326,6 +6354,13 @@
           "views_unique": 0,
           "clones_total": 1,
           "clones_unique": 1
+        },
+        {
+          "date": "2026-11-20",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     },
@@ -6334,22 +6369,22 @@
       "stars": 0,
       "totals": {
         "7d": {
-          "views_total": 6,
-          "views_unique": 3,
-          "clones_total": 2,
-          "clones_unique": 2
+          "views_total": 11,
+          "views_unique": 7,
+          "clones_total": 7,
+          "clones_unique": 4
         },
         "30d": {
-          "views_total": 13,
-          "views_unique": 10,
-          "clones_total": 50,
+          "views_total": 18,
+          "views_unique": 14,
+          "clones_total": 53,
           "clones_unique": 26
         },
         "all": {
-          "views_total": 76,
-          "views_unique": 51,
-          "clones_total": 198,
-          "clones_unique": 138
+          "views_total": 81,
+          "views_unique": 55,
+          "clones_total": 203,
+          "clones_unique": 140
         }
       },
       "series": [
@@ -7297,6 +7332,13 @@
           "views_unique": 0,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-11-20",
+          "views_total": 5,
+          "views_unique": 4,
+          "clones_total": 5,
+          "clones_unique": 2
         }
       ]
     },
@@ -7307,14 +7349,14 @@
         "7d": {
           "views_total": 3,
           "views_unique": 3,
-          "clones_total": 6,
-          "clones_unique": 5
+          "clones_total": 4,
+          "clones_unique": 4
         },
         "30d": {
           "views_total": 17,
           "views_unique": 15,
-          "clones_total": 43,
-          "clones_unique": 32
+          "clones_total": 24,
+          "clones_unique": 22
         },
         "all": {
           "views_total": 120,
@@ -8268,41 +8310,48 @@
           "views_unique": 1,
           "clones_total": 0,
           "clones_unique": 0
+        },
+        {
+          "date": "2026-11-20",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
         }
       ]
     }
   ],
   "totals": {
     "7d": {
-      "views_total": 22,
-      "views_unique": 13,
-      "clones_total": 1184,
-      "clones_unique": 207
+      "views_total": 27,
+      "views_unique": 17,
+      "clones_total": 1193,
+      "clones_unique": 194
     },
     "30d": {
-      "views_total": 90,
-      "views_unique": 48,
-      "clones_total": 3313,
-      "clones_unique": 834
+      "views_total": 96,
+      "views_unique": 53,
+      "clones_total": 3365,
+      "clones_unique": 828
     },
     "all": {
-      "views_total": 313,
-      "views_unique": 197,
-      "clones_total": 6701,
-      "clones_unique": 2354
+      "views_total": 319,
+      "views_unique": 202,
+      "clones_total": 6855,
+      "clones_unique": 2391
     }
   },
   "ranking": {
     "7d": [
       {
-        "name": "tommie-jp/soft-fpga",
-        "views_unique": 3,
-        "views_total": 9
+        "name": "tommie-jp/tommie-chat",
+        "views_unique": 7,
+        "views_total": 11
       },
       {
-        "name": "tommie-jp/tommie-chat",
-        "views_unique": 3,
-        "views_total": 6
+        "name": "tommie-jp/soft-fpga",
+        "views_unique": 4,
+        "views_total": 10
       },
       {
         "name": "tommie-jp/tommie-jp",
@@ -8310,12 +8359,12 @@
         "views_total": 3
       },
       {
-        "name": "tommie-jp/qr-search",
-        "views_unique": 2,
-        "views_total": 2
+        "name": "tommie-jp/Soft-FPGA-Reversi",
+        "views_unique": 1,
+        "views_total": 1
       },
       {
-        "name": "tommie-jp/Soft-FPGA-Reversi",
+        "name": "tommie-jp/qr-search",
         "views_unique": 1,
         "views_total": 1
       },
@@ -8358,8 +8407,8 @@
     "30d": [
       {
         "name": "tommie-jp/soft-fpga",
-        "views_unique": 16,
-        "views_total": 51
+        "views_unique": 17,
+        "views_total": 52
       },
       {
         "name": "tommie-jp/tommie-jp",
@@ -8368,8 +8417,8 @@
       },
       {
         "name": "tommie-jp/tommie-chat",
-        "views_unique": 10,
-        "views_total": 13
+        "views_unique": 14,
+        "views_total": 18
       },
       {
         "name": "tommie-jp/qr-search",
@@ -8425,13 +8474,13 @@
       },
       {
         "name": "tommie-jp/tommie-chat",
-        "views_unique": 51,
-        "views_total": 76
+        "views_unique": 55,
+        "views_total": 81
       },
       {
         "name": "tommie-jp/soft-fpga",
-        "views_unique": 28,
-        "views_total": 70
+        "views_unique": 29,
+        "views_total": 71
       },
       {
         "name": "tommie-jp/qr-search",
@@ -9425,6 +9474,13 @@
       "views_unique": 1,
       "clones_total": 20,
       "clones_unique": 15
+    },
+    {
+      "date": "2026-11-20",
+      "views_total": 6,
+      "views_unique": 5,
+      "clones_total": 154,
+      "clones_unique": 37
     }
   ]
 }
