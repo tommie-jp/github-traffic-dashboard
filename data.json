@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T07:43:42Z",
+  "generated_at": "2026-11-25T06:11:37Z",
   "reference_date": "2026-11-23",
   "periods": [
     "7d",
@@ -2239,6 +2239,13 @@
         },
         {
           "date": "2026-11-22",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 0,
+          "clones_unique": 0
+        },
+        {
+          "date": "2026-11-23",
           "views_total": 0,
           "views_unique": 0,
           "clones_total": 0,
@@ -4499,20 +4506,20 @@
         "7d": {
           "views_total": 7,
           "views_unique": 4,
-          "clones_total": 68,
-          "clones_unique": 29
+          "clones_total": 1002,
+          "clones_unique": 34
         },
         "30d": {
           "views_total": 56,
           "views_unique": 18,
-          "clones_total": 100,
-          "clones_unique": 56
+          "clones_total": 1034,
+          "clones_unique": 61
         },
         "all": {
           "views_total": 77,
           "views_unique": 32,
-          "clones_total": 715,
-          "clones_unique": 315
+          "clones_total": 1649,
+          "clones_unique": 320
         }
       },
       "series": [
@@ -5481,6 +5488,13 @@
           "views_unique": 2,
           "clones_total": 58,
           "clones_unique": 21
+        },
+        {
+          "date": "2026-11-23",
+          "views_total": 0,
+          "views_unique": 0,
+          "clones_total": 934,
+          "clones_unique": 5
         }
       ]
     },
@@ -8486,20 +8500,20 @@
     "7d": {
       "views_total": 19,
       "views_unique": 15,
-      "clones_total": 1449,
-      "clones_unique": 342
+      "clones_total": 2383,
+      "clones_unique": 347
     },
     "30d": {
       "views_total": 105,
       "views_unique": 59,
-      "clones_total": 3619,
-      "clones_unique": 924
+      "clones_total": 4553,
+      "clones_unique": 929
     },
     "all": {
       "views_total": 330,
       "views_unique": 210,
-      "clones_total": 7230,
-      "clones_unique": 2577
+      "clones_total": 8164,
+      "clones_unique": 2582
     }
   },
   "ranking": {
@@ -9661,8 +9675,8 @@
       "date": "2026-11-23",
       "views_total": 3,
       "views_unique": 3,
-      "clones_total": 57,
-      "clones_unique": 22
+      "clones_total": 991,
+      "clones_unique": 27
     }
   ]
 }
